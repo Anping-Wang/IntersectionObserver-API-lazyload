@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        img {
+            width: 500px;
+            /*这里要watch的元素必须设置尺寸，以图片为例，不设置尺寸，则默认初始高度                              为0，则所有的元素一开始就都在viewport中，则会全部加载，达不到                              懒加载的目的*/
+            height: 500px;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="imgPage">
+        <img src="" data-src="./images/1.jpg" alt="">
+        <img src="" data-src="./images/2.jpg" alt="">
+        <img src="" data-src="./images/3.jpg" alt="">
+        <img src="" data-src="./images/4.jpg" alt="">
+        <img src="" data-src="./images/5.jpg" alt="">
+        <img src="" data-src="./images/6.jpg" alt="">
+        <img src="" data-src="./images/7.jpg" alt="">
+        <img src="" data-src="./images/8.jpg" alt="">
+        <img src="" data-src="./images/9.jpg" alt="">
+        <img src="" data-src="./images/10.jpg" alt="">
+        <img src="" data-src="./images/11.jpg" alt="">
+        <img src="" data-src="./images/12.jpg" alt="">
+        <img src="" data-src="./images/13.jpg" alt="">
+        <img src="" data-src="./images/14.jpg" alt="">
+        <img src="" data-src="./images/15.jpg" alt="">
+
+    </div>
+    <script>
+        // var imgs = document.getElementsByTagName('img');
+        //       imgArr = Array.from(imgs);
+
+        //querySelectorAll得到的是一个真正的数组，不是类数组，可以直接使用forEach方法
+        let imgs = document.querySelectorAll('[data-src]');
+        const io = new IntersectionObserver(callback);
+        function callback(entries) {
+            entries.forEach( item => {
+                if (item.isIntersecting) {
+                    item.target.src = item.target.dataset.src;
+                    io.unobserve(item.target);
+                }
+            })
+        };
+        imgs.forEach(i => io.observe(i) );
+    </script>
+</body>
+
+</html>
